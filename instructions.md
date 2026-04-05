@@ -180,11 +180,10 @@ Students translate the formula comment directly into code. Good for students who
 ## Teaching Notes
 
 - Emphasise **why** we separate utils into their own file: reusability, organisation, easier testing
-- For `formatFullName`, walk through `.slice(1)` — beginners may not have seen it
-- For `getItemsUnderPrice`, introduce `Array.filter()` — explain that it takes a callback that returns `true` or `false`, and only keeps the items where the condition is met; contrast with the `for...of` loop pattern from the last lesson to show how array methods can simplify iteration
+- For `formatFullName`, walk through `.slice(1)` — they may have forgotten this
+- For `getItemsUnderPrice`, introduce `Array.filter()` — explain that it takes a callback that returns `true` or `false`, and only keeps the items where the condition is met
 - For `applyDiscount`, read the hint comment aloud and work through the maths together before showing the code
 - Remind students that `.js` extension is **required** in ESM imports: `'./utils.js'` not `'./utils'`
-- Add an extra item with a price just above and just below $100 so the filter output is clearly interesting (already done — USB Hub $34.99, Monitor $199.99)
 
 ---
 
