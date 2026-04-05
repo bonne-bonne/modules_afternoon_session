@@ -69,24 +69,26 @@ js
 ```javascript
 import { formatFullName, getItemsUnderPrice, applyDiscount } from './utils.js';
 
+// This user data might come from a form in the frontend
 const user = {
   firstName: 'sarah',
-  lastName:  'johnson',
+  lastName: 'johnson',
 };
 
+// These products might come from the database
 const cartItems = [
   { name: 'Keyboard', price: 49.99, quantity: 1 },
-  { name: 'Mouse',    price: 24.99, quantity: 2 },
-  { name: 'Monitor',  price: 199.99, quantity: 1 },
-  { name: 'USB Hub',  price: 34.99, quantity: 1 },
+  { name: 'Mouse', price: 24.99, quantity: 2 },
+  { name: 'Monitor', price: 199.99, quantity: 1 },
+  { name: 'USB Hub', price: 34.99, quantity: 1 },
 ];
 
 const discountPercent = 10;
 
-// --- Use the utility functions ---
-const fullName       = formatFullName(user);
+// --- Exercises: Use the utility functions --- //
+const fullName = formatFullName(user);
 const affordableItems = getItemsUnderPrice(cartItems, 100);
-const salePrice      = applyDiscount(cartItems[0].price, discountPercent);
+const salePrice = applyDiscount(cartItems[0].price, discountPercent);
 
 console.log(`Customer: ${fullName}`);
 console.log(`Items under $100:`, affordableItems);
@@ -100,42 +102,63 @@ console.log(`Keyboard after ${discountPercent}% discount: $${salePrice.toFixed(2
 | Block | Duration | Activity |
 | --- | --- | --- |
 | Recap | 5 min | Quick Q&A: what are modules, why use them, how did ESM import/export work in the last lesson |
-| Walkthrough | 15 min | Introduce the scenario. Show the finished files. Talk through `utils.js` function by function. Explain named exports. Show `index.js` imports and dummy data. Run it live |
+| Walkthrough | 10 min | Introduce the scenario. Show the finished files. Walk through each function in `utils.js`: `formatFullName` (string methods), `getItemsUnderPrice` (`Array.filter`), `applyDiscount` (formula). Explain named exports. Show `index.js` imports and dummy data. Run it live |
 | Setup | 10 min | Students create the files themselves and run `node index.js` |
-| Exercise 1 | 10 min | Guided exercise — write `formatPrice(price)` |
-| Exercise 2 (stretch) | 10 min | Stretch — write `applyDiscount` themselves from scratch using a stub with the hint comment |
-| Review & Q&A | 10 min | Go through solutions together, answer questions |
+| Exercise 1 (guided) | 10 min | Build `formatFullName(user)` step by step together |
+| Exercise 2 | 10 min | Students write `getItemsUnderPrice(items, limit)` using `Array.filter()` |
+| Exercise 3 (if time) | 10 min | Students write `applyDiscount(price, discountPercent)` from a formula hint |
+| Review & Q&A | 5 min | Go through solutions together, answer questions |
 
 ---
 
 ## Exercises Detail
 
-### Exercise 1 — `formatPrice(price)`
+### Exercise 1 (guided) — Write `formatFullName(user)`
 
-Add to `utils.js` and export:
+Remove the provided `formatFullName` from `utils.js` and replace with this stub:
 
-js
-
-`// Should return a string like "$49.99"
-export function formatPrice(price) {
+```javascript
+export function formatFullName(user) {
   // your code here
-}`
-
-Then import and use it in `index.js` to print each cart item:
-
-```markdown
-Keyboard — $49.99
-Mouse — $24.99
-Monitor — $199.99
-USB Hub — $34.99
+}
 ```
 
-- Forces students through the full export/import cycle again
-- Uses `.toFixed(2)` which they've already seen in `index.js`
+Build it together using:
+
+- `user.firstName[0].toUpperCase()` + `user.firstName.slice(1).toLowerCase()`
+- `user.lastName[0].toUpperCase()` + `user.lastName.slice(1).toLowerCase()`
+- template literals to return `${first} ${last}`
+
+Run `node index.js` and check the output includes:
+
+```text
+Customer: Sarah Johnson
+```
+
+- Reinforces string indexing, `.slice(1)`, and casing methods
+- Keeps the first exercise highly scaffolded for all learners
 
 ---
 
-### Exercise 2 (stretch) — Write `applyDiscount` from scratch
+### Exercise 2 — Write `getItemsUnderPrice(items, limit)` using `filter`
+
+Remove the provided `getItemsUnderPrice` from `utils.js` and replace with this stub:
+
+```javascript
+export function getItemsUnderPrice(items, limit) {
+  // your code here — use Array.filter()
+}
+```
+
+Students use `Array.filter()` to return only the items where `item.price` is less than `limit`. Run `node index.js` to verify the output still shows the same affordable items.
+
+- Reinforces `Array.filter()` immediately after the walkthrough
+- Gives students practice reading and writing arrow function callbacks
+- Output is easy to verify against the walkthrough demo
+
+---
+
+### Exercise 3 (if time) — Write `applyDiscount` from scratch
 
 Remove the provided `applyDiscount` from `utils.js` and replace with this stub:
 
@@ -143,15 +166,14 @@ js
 
 ```javascript
 export function applyDiscount(price, discountPercent) {
-  // e.g. 20% off $100 can be calculated like this:
-  //   20% of 100 = 20  (the discount amount)
-  //   100 - 20 = 80    (the final price)
+  // Formula: price - (price * (discountPercent / 100))
+  // e.g. 10% off $49.99: 49.99 - (49.99 * (10 / 100)) = 49.99 - 4.999 = 44.99
 
   // your code here
 }
 ```
 
-Students work out the formula from the comment. Good for students who finish early.
+Students translate the formula comment directly into code. Good for students who finish early.
 
 ---
 
